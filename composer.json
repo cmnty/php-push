@@ -1,5 +1,5 @@
 {
-    "name": "cmnty/php-push",
+    "name": "cmnty/push",
     "description": "Web Push library for PHP",
     "type": "library",
     "license": "MIT",
