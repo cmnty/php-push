@@ -4,6 +4,7 @@ namespace Cmnty\Push;
 
 use Cmnty\Push\Crypto\Cryptograph;
 use GuzzleHttp\Client as HttpClient;
+use Psr\Http\Message\ResponseInterface;
 
 class Client implements PushClient
 {
@@ -36,6 +37,8 @@ class Client implements PushClient
      *
      * @param PushNotification $notification
      * @param PushSubscription $subscription
+     *
+     * @param ResponseInterface
      */
     public function pushNotification(PushNotification $notification, PushSubscription $subscription)
     {
@@ -46,6 +49,6 @@ class Client implements PushClient
         $request = $this->pushService->createRequest($pushMessage, $subscription);
         $response = $this->httpClient->send($request);
 
-        dump($response);
+        return $response;
     }
 }

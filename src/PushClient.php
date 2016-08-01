@@ -2,6 +2,8 @@
 
 namespace Cmnty\Push;
 
+use Psr\Http\Message\ResponseInterface;
+
 interface PushClient
 {
     /**
@@ -9,6 +11,8 @@ interface PushClient
      *
      * @param PushNotification $notification
      * @param PushSubscription $subscription
+     *
+     * @return ResponseInterface
      */
     public function pushNotification(PushNotification $notification, PushSubscription $subscription);
 }
