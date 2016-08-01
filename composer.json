@@ -1,6 +1,7 @@
 {
     "name": "cmnty/push",
     "description": "Web Push library for PHP",
+    "keywords": ["Notifications", "Push Notifications", "Push Messages", "Push", "Web Push", "Web Push API", "Push API"],
     "type": "library",
     "license": "MIT",
     "authors": [
