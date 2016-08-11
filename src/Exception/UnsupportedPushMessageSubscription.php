@@ -10,6 +10,7 @@ class UnsupportedPushMessageSubscription extends Exception
      * Create an exception for a given host.
      *
      * @param string $host
+     *
      * @return UnsupportedPushMessageSubscription
      */
     public static function forHost($host)
