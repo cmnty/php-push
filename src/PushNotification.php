@@ -38,4 +38,11 @@ interface PushNotification
      * @return string|null
      */
     public function getUrl();
+
+    /**
+     * Get the icon.
+     *
+     * @return string|null
+     */
+    public function getIcon();
 }

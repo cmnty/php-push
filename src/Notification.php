@@ -20,17 +20,24 @@ class Notification implements PushNotification
     private $url;
 
     /**
+     * @var string|null
+     */
+    private $icon;
+
+    /**
      * Constructor.
      *
      * @param string $title
      * @param string $body
      * @param string|null $url
+     * @param string|null $icon
      */
-    public function __construct($title, $body, $url = null)
+    public function __construct($title, $body, $url = null, $icon = null)
     {
         $this->title = $title;
         $this->body = $body;
         $this->url = $url;
+        $this->icon = $icon;
     }
 
     /**
@@ -54,6 +61,7 @@ class Notification implements PushNotification
             'title' => $this->title,
             'body' => $this->body,
             'url' => $this->url,
+            'icon' => $this->icon,
         ]);
     }
 
@@ -83,6 +91,16 @@ class Notification implements PushNotification
      * @return string|null
      */
     public function getUrl()
+    {
+        return $this->url;
+    }
+
+    /**
+     * Get the icon.
+     *
+     * @return string|null
+     */
+    public function getIcon()
     {
         return $this->url;
     }
