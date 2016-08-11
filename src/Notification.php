@@ -102,6 +102,6 @@ class Notification implements PushNotification
      */
     public function getIcon()
     {
-        return $this->url;
+        return $this->icon;
     }
 }
