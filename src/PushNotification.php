@@ -31,4 +31,11 @@ interface PushNotification
      * @return string
      */
     public function getBody();
+
+    /**
+     * Get the body.
+     *
+     * @return string|null
+     */
+    public function getUrl();
 }

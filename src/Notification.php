@@ -15,15 +15,22 @@ class Notification implements PushNotification
     private $body;
 
     /**
+     * @var string|null
+     */
+    private $url;
+
+    /**
      * Constructor.
      *
      * @param string $title
      * @param string $body
+     * @param string|null $url
      */
-    public function __construct($title, $body)
+    public function __construct($title, $body, $url = null)
     {
         $this->title = $title;
         $this->body = $body;
+        $this->url = $url;
     }
 
     /**
@@ -46,6 +53,7 @@ class Notification implements PushNotification
         return json_encode([
             'title' => $this->title,
             'body' => $this->body,
+            'url' => $this->url,
         ]);
     }
 
@@ -67,5 +75,15 @@ class Notification implements PushNotification
     public function getBody()
     {
         return $this->body;
+    }
+
+    /**
+     * Get the url.
+     *
+     * @return string|null
+     */
+    public function getUrl()
+    {
+        return $this->url;
     }
 }
