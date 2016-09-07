@@ -38,12 +38,13 @@ class Client implements PushClient
      *
      * @param PushNotification $notification
      * @param PushSubscription $subscription
+     * @param int $ttl
      *
      * @return ResponseInterface
      */
-    public function pushNotification(PushNotification $notification, PushSubscription $subscription)
+    public function pushNotification(PushNotification $notification, PushSubscription $subscription, $ttl = 3600)
     {
-        return $this->pushNotificationAsync($notification, $subscription)->wait();
+        return $this->pushNotificationAsync($notification, $subscription, $ttl)->wait();
     }
 
     /**
@@ -51,14 +52,15 @@ class Client implements PushClient
      *
      * @param PushNotification $notification
      * @param PushSubscription $subscription
+     * @param int $ttl
      *
      * @return PromiseInterface
      */
-    public function pushNotificationAsync(PushNotification $notification, PushSubscription $subscription)
+    public function pushNotificationAsync(PushNotification $notification, PushSubscription $subscription, $ttl = 3600)
     {
         $cipher = $this->cryptograph->encrypt($notification, $subscription);
 
-        $pushMessage = new Message($cipher, $subscription);
+        $pushMessage = new Message($cipher, $subscription, $ttl);
 
         $request = $this->pushService->createRequest($pushMessage, $subscription);
         $promise = $this->httpClient->sendAsync($request);
