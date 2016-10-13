@@ -29,7 +29,7 @@ class AggregatePushService implements PushService
      *
      * @return bool
      */
-    public function supportsHost($host)
+    public function supportsHost(string $host) : bool
     {
         $pushService = $this->pushServiceRegistry->getPushService($host);
 
@@ -45,7 +45,7 @@ class AggregatePushService implements PushService
      *
      * @throws UnsupportedPushMessageSubscription When the PushMessage Subscription has an unsupported endpoint.
      */
-    public function createRequest(PushMessage $message)
+    public function createRequest(PushMessage $message) : RequestInterface
     {
         $host = $message->getPushSubscription()->getEndpoint()->getHost();
 

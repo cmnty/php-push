@@ -11,40 +11,40 @@ interface PushMessage
      *
      * @return string
      */
-    public function getBody();
+    public function getBody() : string;
 
     /**
      * Get cipher salt.
      *
-     * @return string
+     * @return string A url safe base64 encoded representation of the salt used.
      */
-    public function getSalt();
+    public function getSalt() : string;
 
     /**
-     * Get cipher crypto key.
+     * Get the public key.
      *
-     * @return string
+     * @return string A url safe base64 encoded representation of the public key.
      */
-    public function getCryptoKey();
+    public function getCryptoKey() : string;
 
     /**
      * Get message content length.
      *
      * @return int
      */
-    public function getContentLength();
+    public function getContentLength() : int;
 
     /**
      * Get message subscription.
      *
      * @return PushSubscription
      */
-    public function getPushSubscription();
+    public function getPushSubscription() : PushSubscription;
 
     /**
      * Get message ttl.
      *
      * @return int
      */
-    public function getTTL();
+    public function getTTL() : int;
 }
