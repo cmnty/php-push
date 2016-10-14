@@ -17,6 +17,9 @@
         "mdanter/ecc": "~0.4.0",
         "spomky-labs/base64url": "~1.0"
     },
+    "require-dev": {
+        "phpspec/phpspec": "~3.1"
+    },
     "autoload": {
         "psr-4": {
             "Cmnty\\Push\\": "src"
