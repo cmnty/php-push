@@ -12,19 +12,19 @@ interface PushSubscription
      *
      * @return Endpoint
      */
-    public function getEndpoint();
+    public function getEndpoint() : Endpoint;
 
     /**
      * Get the public key.
      *
      * @return PublicKey
      */
-    public function getPublicKey();
+    public function getPublicKey() : PublicKey;
 
     /**
      * Get the authentication tag.
      *
      * @return AuthenticationTag
      */
-    public function getAuthenticationTag();
+    public function getAuthenticationTag() : AuthenticationTag;
 }

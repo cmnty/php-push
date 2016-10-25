@@ -32,7 +32,7 @@ class Notification implements PushNotification
      * @param string|null $url
      * @param string|null $icon
      */
-    public function __construct($title, $body, $url = null, $icon = null)
+    public function __construct(string $title, string $body, string $url = null, string $icon = null)
     {
         $this->title = $title;
         $this->body = $body;
@@ -55,7 +55,7 @@ class Notification implements PushNotification
      *
      * @return string
      */
-    public function json()
+    public function json() : string
     {
         return json_encode([
             'title' => $this->title,
@@ -70,7 +70,7 @@ class Notification implements PushNotification
      *
      * @return string
      */
-    public function getTitle()
+    public function getTitle() : string
     {
         return $this->title;
     }
@@ -80,7 +80,7 @@ class Notification implements PushNotification
      *
      * @return string
      */
-    public function getBody()
+    public function getBody() : string
     {
         return $this->body;
     }

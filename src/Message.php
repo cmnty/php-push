@@ -21,7 +21,14 @@ class Message implements PushMessage
      */
     private $ttl;
 
-    public function __construct(Cipher $cipher, PushSubscription $subscription, $ttl = 3600)
+    /**
+     * Constructor.
+     *
+     * @param Cipher $cipher
+     * @param PushSubscription $subscription
+     * @param int $ttl
+     */
+    public function __construct(Cipher $cipher, PushSubscription $subscription, int $ttl = 3600)
     {
         $this->cipher = $cipher;
         $this->subscription = $subscription;
@@ -35,7 +42,7 @@ class Message implements PushMessage
      *
      * @return string
      */
-    public function getBody()
+    public function getBody() : string
     {
         return
             $this->cipher->getCipherText()->getRawBytes()
@@ -46,19 +53,19 @@ class Message implements PushMessage
     /**
      * Get cipher salt.
      *
-     * @return string
+     * @return string A url safe base64 encoded representation of the salt used.
      */
-    public function getSalt()
+    public function getSalt() : string
     {
         return $this->cipher->getSalt()->getBase64UrlSafeString();
     }
 
     /**
-     * Get cipher crypto key.
+     * Get the public key.
      *
-     * @return string
+     * @return string A url safe base64 encoded representation of the public key.
      */
-    public function getCryptoKey()
+    public function getCryptoKey() : string
     {
         return $this->cipher->getPublicKey()->getBase64UrlSafeString();
     }
@@ -68,7 +75,7 @@ class Message implements PushMessage
      *
      * @return int
      */
-    public function getContentLength()
+    public function getContentLength() : int
     {
         return strlen($this->getBody());
     }
@@ -78,7 +85,7 @@ class Message implements PushMessage
      *
      * @return PushSubscription
      */
-    public function getPushSubscription()
+    public function getPushSubscription() : PushSubscription
     {
         return $this->subscription;
     }
@@ -88,7 +95,7 @@ class Message implements PushMessage
      *
      * @return int
      */
-    public function getTTL()
+    public function getTTL() : int
     {
         return $this->ttl;
     }
