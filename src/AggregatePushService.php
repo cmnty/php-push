@@ -2,7 +2,7 @@
 
 namespace Cmnty\Push;
 
-use Cmnty\Push\Exception\UnsupportedPushMessageSubscription;
+use Cmnty\Push\Exception\UnsupportedPushService;
 use Psr\Http\Message\RequestInterface;
 
 class AggregatePushService implements PushService
@@ -31,9 +31,7 @@ class AggregatePushService implements PushService
      */
     public function supportsHost(string $host) : bool
     {
-        $pushService = $this->pushServiceRegistry->getPushService($host);
-
-        return $pushService instanceof PushService;
+        return $this->pushServiceRegistry->hasPushService($host);
     }
 
     /**
@@ -43,16 +41,11 @@ class AggregatePushService implements PushService
      *
      * @return RequestInterface
      *
-     * @throws UnsupportedPushMessageSubscription When the PushMessage Subscription has an unsupported endpoint.
+     * @throws UnsupportedPushService When no push service that supports the given push message is found.
      */
     public function createRequest(PushMessage $message) : RequestInterface
     {
         $host = $message->getPushSubscription()->getEndpoint()->getHost();
-
-        if (!$this->supportsHost($host)) {
-            throw UnsupportedPushMessageSubscription::forHost($host);
-        }
-
         $pushService = $this->pushServiceRegistry->getPushService($host);
 
         return $pushService->createRequest($message);
