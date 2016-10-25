@@ -20,6 +20,11 @@ class Client implements PushClient
     private $httpClient;
 
     /**
+     * @var Cryptograph
+     */
+    private $cryptograph;
+
+    /**
      * Constructor.
      *
      * @param PushService $pushService
@@ -29,8 +34,8 @@ class Client implements PushClient
     public function __construct(PushService $pushService, HttpClient $httpClient = null, Cryptograph $cryptograph = null)
     {
         $this->pushService = $pushService;
-        $this->httpClient = $httpClient ?: new HttpClient();
-        $this->cryptograph = $cryptograph ?: new Cryptograph();
+        $this->httpClient = $httpClient ?? new HttpClient();
+        $this->cryptograph = $cryptograph ?? new Cryptograph();
     }
 
     /**
