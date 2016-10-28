@@ -2,6 +2,7 @@
 
 namespace Cmnty\Push;
 
+use GuzzleHttp\Promise\PromiseInterface;
 use Psr\Http\Message\ResponseInterface;
 
 interface PushClient

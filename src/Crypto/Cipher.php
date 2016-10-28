@@ -2,9 +2,6 @@
 
 namespace Cmnty\Push\Crypto;
 
-use Cmnty\Push\PushNotification;
-use Cmnty\Push\Subscription;
-
 class Cipher
 {
     /**

@@ -2,8 +2,6 @@
 
 namespace Cmnty\Push\Crypto;
 
-use Base64Url\Base64Url;
-
 abstract class KeyMaterial extends BinaryString
 {
     /**
