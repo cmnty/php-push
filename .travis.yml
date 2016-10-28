@@ -1,0 +1,17 @@
+language: php
+
+php:
+    - 7.0
+
+cache:
+  directories:
+    - $HOME/.composer/cache
+
+install:
+    - pecl install crypto-0.2.2
+
+before_script:
+    - travis_retry composer install --no-interaction
+
+script:
+    - vendor/bin/phpspec run --format=pretty
