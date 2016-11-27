@@ -2,4 +2,30 @@
 
 namespace Cmnty\Push\Crypto;
 
-class CipherText extends BinaryString {}
+class CipherText implements RawBytes
+{
+    /**
+     * @var BinaryString
+     */
+    private $binaryString;
+
+    /**
+     * Create cipher text.
+     *
+     * @param BinaryString $binaryString
+     */
+    public function __construct(BinaryString $binaryString)
+    {
+        $this->binaryString = $binaryString;
+    }
+
+    /**
+     * Get raw bytes.
+     *
+     * @return string
+     */
+    public function getRawBytes() : string
+    {
+        return $this->binaryString->getRawBytes();
+    }
+}

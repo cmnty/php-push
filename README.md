@@ -16,9 +16,11 @@ composer require cmnty/push
 ## Usage
 
 ```php
+<?php
+
 use Cmnty\Push\AggregatePushService;
 use Cmnty\Push\Client;
-use Cmnty\Push\Crypto\AuthenticationTag;
+use Cmnty\Push\Crypto\AuthenticationSecret;
 use Cmnty\Push\Crypto\PublicKey;
 use Cmnty\Push\EndPoint;
 use Cmnty\Push\GooglePushService;
@@ -28,7 +30,11 @@ use Cmnty\Push\PushServiceRegistry;
 use Cmnty\Push\Subscription;
 
 $notification = new Notification('Hello', 'World!');
-$subscription = new Subscription(new Endpoint('...'), new PublicKey('...'), new AuthenticationTag('...'));
+$subscription = new Subscription(
+    new Endpoint('...'),
+    new PublicKey::createFromBase64UrlEncodedString('...'),
+    new AuthenticationSecret::createFromBase64UrlEncodedString('...')
+);
 
 $pushServiceRegistry = new PushServiceRegistry();
 $pushServiceRegistry->addPushService(new GooglePushService('API Key'));

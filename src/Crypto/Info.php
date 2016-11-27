@@ -5,11 +5,6 @@ namespace Cmnty\Push\Crypto;
 class Info
 {
     /**
-     * @var string
-     */
-    private $type;
-
-    /**
      * @var PublicKey
      */
     private $recipientPublicKey;
@@ -22,28 +17,35 @@ class Info
     /**
      * Constructor.
      *
-     * @param string $type
      * @param PublicKey $recipientPublicKey
      * @param PublicKey $senderPublicKey
      */
-    public function __construct($type, PublicKey $recipientPublicKey, PublicKey $senderPublicKey)
+    public function __construct(PublicKey $recipientPublicKey, PublicKey $senderPublicKey)
     {
-        $this->type = $type;
         $this->recipientPublicKey = $recipientPublicKey;
         $this->senderPublicKey = $senderPublicKey;
     }
 
-    public function getInfo()
+    public function getContentEncoding(string $type) : string
     {
-        return 'Content-Encoding: '
-            .$this->type
+        if ($type === 'auth') {
+            return
+                'Content-Encoding: '
+                .$type
+                .chr(0)
+            ;
+        }
+
+        return
+            'Content-Encoding: '
+            .$type
             .chr(0)
             .'P-256'
             .chr(0)
             .pack('n', $this->recipientPublicKey->getLength())
-            .$this->recipientPublicKey->getRawBytes()
+            .$this->recipientPublicKey->getRawKeyMaterial()
             .pack('n', $this->senderPublicKey->getLength())
-            .$this->senderPublicKey->getRawBytes()
+            .$this->senderPublicKey->getRawKeyMaterial()
         ;
     }
 }

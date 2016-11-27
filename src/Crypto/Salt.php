@@ -2,29 +2,48 @@
 
 namespace Cmnty\Push\Crypto;
 
-class Salt extends BinaryString
+use InvalidArgumentException;
+
+class Salt implements RawBytes
 {
     /**
-     * Named constructor.
-     *
-     * @param int $length
-     *
-     * @return Salt
+     * @var BinaryString
      */
-    public static function createWithLength($length)
+    private $binaryString;
+
+    /**
+     * Create a 16 bytes long salt.
+     *
+     * @throws InvalidArgumentException When the salt is not the correct length.
+     */
+    public function __construct()
     {
-        return new Salt(random_bytes($length));
+        $binaryString = new BinaryString(random_bytes(16));
+
+        if ($binaryString->getLength() != 16) {
+            throw new InvalidArgumentException('Salt could not be created: incorrect length.');
+        }
+
+        $this->binaryString = $binaryString;
     }
 
     /**
-     * Check whether or not salt is valid.
+     * Get raw bytes.
      *
-     * The salt should be 16 characters long
-     *
-     * @return boolean
+     * @return string
      */
-    public function isValid()
+    public function getRawBytes() : string
     {
-        return $this->getLength() === 16;
+        return $this->binaryString->getRawBytes();
+    }
+
+    /**
+     * Get base64url encoded string.
+     *
+     * @return string
+     */
+    public function getBase64UrlEncodedString() : string
+    {
+        return $this->binaryString->getBase64UrlEncodedString();
     }
 }

@@ -2,17 +2,38 @@
 
 namespace Cmnty\Push\Crypto;
 
-class AuthenticationTag extends KeyMaterial
+use InvalidArgumentException;
+
+class AuthenticationTag implements RawBytes
 {
     /**
-     * Check whether or not the authentication tag is valid.
-     *
-     * The tag should be 16 characters long
-     *
-     * @return boolean
+     * @var BinaryString
      */
-    public function isValid()
+    private $binaryString;
+
+    /**
+     * Create authentication tag.
+     *
+     * @param BinaryString $binaryString
+     *
+     * @throws InvalidArgumentException When the authentication tag is not the correct length.
+     */
+    public function __construct(BinaryString $binaryString)
     {
-        return $this->getLength() === 16;
+        if ($binaryString->getLength() != 16) {
+            throw new InvalidArgumentException('AuthenticationTag could not be created: incorrect length.');
+        }
+
+        $this->binaryString = $binaryString;
+    }
+
+    /**
+     * Get raw bytes.
+     *
+     * @return string
+     */
+    public function getRawBytes() : string
+    {
+        return $this->binaryString->getRawBytes();
     }
 }

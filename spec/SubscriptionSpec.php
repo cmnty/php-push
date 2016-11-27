@@ -2,7 +2,7 @@
 
 namespace spec\Cmnty\Push;
 
-use Cmnty\Push\Crypto\AuthenticationTag;
+use Cmnty\Push\Crypto\AuthenticationSecret;
 use Cmnty\Push\Crypto\PublicKey;
 use Cmnty\Push\Endpoint;
 use Cmnty\Push\PushSubscription;
@@ -11,9 +11,9 @@ use PhpSpec\ObjectBehavior;
 
 class SubscriptionSpec extends ObjectBehavior
 {
-    function let(Endpoint $endpoint, PublicKey $key, AuthenticationTag $tag)
+    function let(Endpoint $endpoint, PublicKey $key, AuthenticationSecret $secret)
     {
-        $this->beConstructedWith($endpoint, $key, $tag);
+        $this->beConstructedWith($endpoint, $key, $secret);
     }
 
     function it_is_initializable()
@@ -36,8 +36,8 @@ class SubscriptionSpec extends ObjectBehavior
         $this->getPublicKey()->shouldReturn($key);
     }
 
-    function it_should_contain_an_authentication_tag(AuthenticationTag $tag)
+    function it_should_contain_an_authentication_secret(AuthenticationSecret $secret)
     {
-        $this->getAuthenticationTag()->shouldReturn($tag);
+        $this->getAuthenticationSecret()->shouldReturn($secret);
     }
 }

@@ -15,11 +15,11 @@ class Cryptograph
     /**
      * Constructor.
      *
-     * @param int $length
+     * @param int|null $length
      */
-    public function __construct($length = null)
+    public function __construct(int $length = null)
     {
-        $this->length = $length ?: 0;
+        $this->length = $length ?? 0;
     }
 
     /**
@@ -30,30 +30,31 @@ class Cryptograph
      *
      * @return Cipher
      */
-    public function encrypt(PushNotification $notification, Subscription $subscription)
+    public function encrypt(PushNotification $notification, Subscription $subscription) : Cipher
     {
-        $plainText = $this->addPadding((string) $notification);
+        $plainText = $this->addPadding($notification->json());
 
         $recipientPublicKey = $subscription->getPublicKey();
-        $authenticationTag = $subscription->getAuthenticationTag();
+        $authenticationSecret = $subscription->getAuthenticationSecret();
 
-        $salt = Salt::createWithLength(16);
+        $generator = new KeyGenerator();
+        $keyPair = $generator->generateKeyPair();
+        $senderPrivateKey = $keyPair->getPrivateKey();
+        $senderPublicKey = $keyPair->getPublicKey();
 
-        $ikmGenerator = new InitialKeyingMaterialGenerator();
-        $ikm = $ikmGenerator->generateInitialKeyingMaterial($recipientPublicKey);
-        $senderPublicKey = $ikm->getServerPublicKey();
+        $sharedSecret = $senderPrivateKey->calculateSharedSecret($recipientPublicKey);
 
-        $prk = self::hkdf($authenticationTag->getRawBytes(), $ikm->getRawBytes(), 'Content-Encoding: auth'.chr(0), 32);
+        $salt = new Salt();
+        $info = new Info($recipientPublicKey, $senderPublicKey);
+        $hkdf = new HKDF();
 
-        $contentEncryptionKeyInfo = new Info('aesgcm', $recipientPublicKey, $senderPublicKey);
-        $contentEncryptionKey = self::hkdf($salt->getRawBytes(), $prk, $contentEncryptionKeyInfo->getInfo(), 16);
-
-        $nonceInfo = new Info('nonce', $recipientPublicKey, $senderPublicKey);
-        $nonce = self::hkdf($salt->getRawBytes(), $prk, $nonceInfo->getInfo(), 12);
+        $pseudoRandomKey = new PseudoRandomKey($hkdf($authenticationSecret, $sharedSecret, $info->getContentEncoding('auth'), 32));
+        $contentEncryptionKey = new ContentEncryptionKey($hkdf($salt, $pseudoRandomKey, $info->getContentEncoding('aesgcm'), 16));
+        $nonce = new Nonce($hkdf($salt, $pseudoRandomKey, $info->getContentEncoding('nonce'), 12));
 
         $cipher = new \Crypto\Cipher('aes-128-gcm');
-        $cipherText = new CipherText($cipher->encrypt($plainText, $contentEncryptionKey, $nonce));
-        $tag = new AuthenticationTag($cipher->getTag());
+        $cipherText = new CipherText(new BinaryString($cipher->encrypt($plainText, $contentEncryptionKey->getRawKeyMaterial(), $nonce->getRawBytes())));
+        $tag = new AuthenticationTag(new BinaryString($cipher->getTag()));
 
         return new Cipher($cipherText, $tag, $salt, $senderPublicKey);
     }
@@ -67,17 +68,10 @@ class Cryptograph
      *
      * @return string
      */
-    private function addPadding($notification)
+    private function addPadding(string $notification) : string
     {
         $length = $this->length;
 
         return pack('n*', $length).str_pad($notification, $length + 2, chr(0), STR_PAD_LEFT);
-    }
-
-    private static function hkdf($salt, $ikm, $info, $length)
-    {
-        $prk = hash_hmac('sha256', $ikm, $salt, true);
-
-        return substr(hash_hmac('sha256', $info.chr(1), $prk, true), 0, $length);
     }
 }

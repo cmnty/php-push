@@ -53,21 +53,21 @@ class Message implements PushMessage
     /**
      * Get cipher salt.
      *
-     * @return string A url safe base64 encoded representation of the salt used.
+     * @return string A base64url encoded representation of the salt used.
      */
     public function getSalt() : string
     {
-        return $this->cipher->getSalt()->getBase64UrlSafeString();
+        return $this->cipher->getSalt()->getBase64UrlEncodedString();
     }
 
     /**
      * Get the public key.
      *
-     * @return string A url safe base64 encoded representation of the public key.
+     * @return string A base64url encoded representation of the public key.
      */
     public function getCryptoKey() : string
     {
-        return $this->cipher->getPublicKey()->getBase64UrlSafeString();
+        return $this->cipher->getPublicKey()->getBase64UrlEncodedString();
     }
 
     /**

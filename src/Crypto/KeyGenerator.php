@@ -2,63 +2,22 @@
 
 namespace Cmnty\Push\Crypto;
 
-use Mdanter\Ecc\Crypto\Key\PublicKeyInterface;
-use Mdanter\Ecc\Math\GmpMathInterface;
-use Mdanter\Ecc\Primitives\PointInterface;
-use Mdanter\Ecc\Serializer\Point\UncompressedPointSerializer;
+use Mdanter\Ecc\EccFactory;
 
 class KeyGenerator
 {
     /**
-     * Adapter used for math calculations
+     * Generate a KeyPair.
      *
-     * @var GmpMathInterface
+     * @return KeyPair
      */
-    private $adapter;
-
-    /**
-     * Point generator
-     *
-     * @var PointInterface
-     */
-    private $generator;
-
-    /**
-     * Initialize a new exchange from a generator point.
-     *
-     * @param GmpMathInterface $adapter A math adapter instance.
-     * @param PointInterface $generator A point generator instance.
-     */
-    public function __construct(GmpMathInterface $adapter, PointInterface $generator)
+    public function generateKeyPair() : KeyPair
     {
-        $this->adapter = $adapter;
-        $this->generator = $generator;
-        $this->pointSerializer = new UncompressedPointSerializer($this->adapter);
-    }
+        $generator = EccFactory::getNistCurves()->generator256();
 
-    /**
-     * Create a PublicKeyInterface from a EncryptionKey
-     *
-     * @param PublicKey $publicKey
-     *
-     * @return PublicKeyInterface
-     */
-    public function generatePublicKey(PublicKey $publicKey)
-    {
-        $point = $this->pointSerializer->unserialize($this->generator->getCurve(), bin2hex($publicKey->getRawBytes()));
+        $eccPrivateKey = $generator->createPrivateKey();
+        $privateKey = PrivateKey::createFromEccKey($eccPrivateKey);
 
-        return $this->generator->getPublicKeyFrom($point->getX(), $point->getY(), $this->generator->getOrder());
-    }
-
-    /**
-     * Convert a Mdanter Ecc PublicKeyInterface into a PublicKey
-     *
-     * @param PublicKeyInterface $publicKey
-     *
-     * @return PublicKey
-     */
-    public function convertPublicKey(PublicKeyInterface $publicKey)
-    {
-        return new PublicKey(hex2bin($this->pointSerializer->serialize($publicKey->getPoint())));
+        return new KeyPair($privateKey, $privateKey->getPublicKey());
     }
 }
