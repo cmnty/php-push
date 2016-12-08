@@ -4,7 +4,7 @@ namespace Cmnty\Push\Crypto;
 
 use InvalidArgumentException;
 
-class Nonce implements RawBytes
+class ContentEncryptionKey implements KeyingMaterial
 {
     /**
      * @var BinaryString
@@ -12,16 +12,16 @@ class Nonce implements RawBytes
     private $binaryString;
 
     /**
-     * Create nonce.
+     * Create encryption key.
      *
      * @param BinaryString $binaryString
      *
-     * @throws InvalidArgumentException When the nonce is not the correct length.
+     * @throws InvalidArgumentException When the encryption key is not the correct length.
      */
     public function __construct(BinaryString $binaryString)
     {
-        if ($binaryString->getLength() != 12) {
-            throw new InvalidArgumentException('Nonce could not be created: incorrect length.');
+        if ($binaryString->getLength() != 16) {
+            throw new InvalidArgumentException('ContentEncryptionKey could not be created: incorrect length.');
         }
 
         $this->binaryString = $binaryString;
@@ -32,7 +32,7 @@ class Nonce implements RawBytes
      *
      * @return string
      */
-    public function getRawBytes() : string
+    public function getRawKeyMaterial() : string
     {
         return $this->binaryString->getRawBytes();
     }

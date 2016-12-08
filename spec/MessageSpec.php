@@ -33,7 +33,9 @@ class MessageSpec extends ObjectBehavior
     function it_should_contain_the_message_body(Cipher $cipher, CipherText $cipherText, AuthenticationTag $tag)
     {
         $cipher->getCipherText()->willReturn($cipherText);
+        $cipherText->getRawBytes()->willReturn('raw_bytes');
         $cipher->getAuthenticationTag()->willReturn($tag);
+        $tag->getRawBytes()->willReturn('raw_bytes');
 
         $this->getBody()->shouldBeString();
     }
@@ -41,7 +43,7 @@ class MessageSpec extends ObjectBehavior
     function it_should_contain_the_used_salt(Cipher $cipher, Salt $salt)
     {
         $cipher->getSalt()->willReturn($salt);
-        $salt->getBase64UrlSafeString()->willReturn('url_safe_base_64');
+        $salt->getBase64UrlEncodedString()->willReturn('base64url');
 
         $this->getSalt()->shouldBeString();
     }
@@ -49,7 +51,7 @@ class MessageSpec extends ObjectBehavior
     function it_should_contain_the_used_public_key(Cipher $cipher, PublicKey $key)
     {
         $cipher->getPublicKey()->willReturn($key);
-        $key->getBase64UrlSafeString()->willReturn('url_safe_base_64');
+        $key->getBase64UrlEncodedString()->willReturn('base64url');
 
         $this->getCryptoKey()->shouldBeString();
     }
@@ -57,7 +59,9 @@ class MessageSpec extends ObjectBehavior
     function it_should_contain_the_content_length(Cipher $cipher, CipherText $cipherText, AuthenticationTag $tag)
     {
         $cipher->getCipherText()->willReturn($cipherText);
+        $cipherText->getRawBytes()->willReturn('raw_bytes');
         $cipher->getAuthenticationTag()->willReturn($tag);
+        $tag->getRawBytes()->willReturn('raw_bytes');
 
         $this->getContentLength()->shouldBeInt();
     }

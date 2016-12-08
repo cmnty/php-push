@@ -2,7 +2,7 @@
 
 namespace Cmnty\Push;
 
-use Cmnty\Push\Crypto\AuthenticationTag;
+use Cmnty\Push\Crypto\AuthenticationSecret;
 use Cmnty\Push\Crypto\PublicKey;
 
 class Subscription implements PushSubscription
@@ -18,22 +18,22 @@ class Subscription implements PushSubscription
     private $publicKey;
 
     /**
-     * @var AuthenticationTag
+     * @var AuthenticationSecret
      */
-    private $authenticationTag;
+    private $authenticationSecret;
 
     /**
      * Constructor.
      *
      * @param Endpoint $endpoint
      * @param PublicKey $publicKey
-     * @param AuthenticationTag $authenticationTag
+     * @param AuthenticationSecret $authenticationSecret
      */
-    public function __construct(Endpoint $endpoint, PublicKey $publicKey, AuthenticationTag $authenticationTag)
+    public function __construct(Endpoint $endpoint, PublicKey $publicKey, AuthenticationSecret $authenticationSecret)
     {
         $this->endpoint = $endpoint;
         $this->publicKey = $publicKey;
-        $this->authenticationTag = $authenticationTag;
+        $this->authenticationSecret = $authenticationSecret;
     }
 
     /**
@@ -59,10 +59,10 @@ class Subscription implements PushSubscription
     /**
      * Get the authentication tag.
      *
-     * @return AuthenticationTag
+     * @return AuthenticationSecret
      */
-    public function getAuthenticationTag() : AuthenticationTag
+    public function getAuthenticationSecret() : AuthenticationSecret
     {
-        return $this->authenticationTag;
+        return $this->authenticationSecret;
     }
 }

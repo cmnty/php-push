@@ -2,7 +2,7 @@
 
 namespace Cmnty\Push;
 
-use Cmnty\Push\Crypto\AuthenticationTag;
+use Cmnty\Push\Crypto\AuthenticationSecret;
 use Cmnty\Push\Crypto\PublicKey;
 
 interface PushSubscription
@@ -24,7 +24,7 @@ interface PushSubscription
     /**
      * Get the authentication tag.
      *
-     * @return AuthenticationTag
+     * @return AuthenticationSecret
      */
-    public function getAuthenticationTag() : AuthenticationTag;
+    public function getAuthenticationSecret() : AuthenticationSecret;
 }
