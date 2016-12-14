@@ -13,6 +13,9 @@ Require the library with composer:
 composer require cmnty/push
 ```
 
+This library supports both `ext-crypto` and `lib-openssl` for it's encryption needs.
+While a php fallback can be provided by `spomky-labs/php-aes-gcm` it is advised to use that only as a last resort.
+
 ## Usage
 
 ```php
@@ -44,6 +47,26 @@ $client = new Client($pushService);
 
 $client->pushNotification($notification, $subscription);
 ```
+
+By default, the `Cmnty\Push\Crypto\AggregateCrypt` class is used to encrypt the notification.
+This class tries to encrypt the notification using third party libraries or extensions in the following order:
+* Encrypt using `ext-crypto` implemented by `Cmnty\Push\Crypto\ExtCryptoCrypt`
+* Encrypt using `lib-openssl` implemented by `Cmnty\Push\Crypto\OpenSSLCrypt`
+* Encrypt using native php implemented by `Cmnty\Push\Crypto\SpomkyLabsCrypt` using `spomky-labs/php-aes-gcm`
+
+You can also force a certain library or extension to be used by passing it to the PushClient:
+```php
+<?php
+
+use Cmnty\Push\Client;
+use Cmnty\Push\Crypto\Cryptograph;
+use Cmnty\Push\Crypto\ExtCryptoCrypt;
+
+$pushService = ...;
+$cryptograph = new Cryptograph(new ExtCryptoCrypt());
+$client = new Client($pushService, null, $cryptograph);
+```
+If required, you can also provide your own implementation by implementing the `Cmnty\Push\Crypto\Crypt` interface.
 
 ## Framework Integration
 

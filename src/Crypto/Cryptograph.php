@@ -8,6 +8,11 @@ use Cmnty\Push\Subscription;
 class Cryptograph
 {
     /**
+     * @var Crypt
+     */
+    private $crypt;
+
+    /**
      * @var int
      */
     private $length;
@@ -15,10 +20,12 @@ class Cryptograph
     /**
      * Constructor.
      *
+     * @param Crypt $length
      * @param int|null $length
      */
-    public function __construct(int $length = null)
+    public function __construct(Crypt $crypt, int $length = null)
     {
+        $this->crypt = $crypt;
         $this->length = $length ?? 0;
     }
 
@@ -52,11 +59,7 @@ class Cryptograph
         $contentEncryptionKey = new ContentEncryptionKey($hkdf($salt, $pseudoRandomKey, $info->getContentEncoding('aesgcm'), 16));
         $nonce = new Nonce($hkdf($salt, $pseudoRandomKey, $info->getContentEncoding('nonce'), 12));
 
-        $cipher = new \Crypto\Cipher('aes-128-gcm');
-        $cipherText = new CipherText(new BinaryString($cipher->encrypt($plainText, $contentEncryptionKey->getRawKeyMaterial(), $nonce->getRawBytes())));
-        $tag = new AuthenticationTag(new BinaryString($cipher->getTag()));
-
-        return new Cipher($cipherText, $tag, $salt, $senderPublicKey);
+        return $this->crypt->encrypt($plainText, $contentEncryptionKey, $nonce, $salt, $senderPublicKey);
     }
 
     /**

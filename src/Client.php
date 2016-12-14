@@ -3,6 +3,7 @@
 namespace Cmnty\Push;
 
 use Cmnty\Push\Crypto\Cryptograph;
+use Cmnty\Push\Crypto\AggregateCrypt;
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Promise\PromiseInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -15,7 +16,7 @@ class Client implements PushClient
     private $pushService;
 
     /**
-     * @var Client
+     * @var HttpClient
      */
     private $httpClient;
 
@@ -35,7 +36,7 @@ class Client implements PushClient
     {
         $this->pushService = $pushService;
         $this->httpClient = $httpClient ?? new HttpClient();
-        $this->cryptograph = $cryptograph ?? new Cryptograph();
+        $this->cryptograph = $cryptograph ?? new Cryptograph(new AggregateCrypt());
     }
 
     /**
