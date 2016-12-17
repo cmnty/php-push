@@ -4,15 +4,33 @@ namespace spec\Cmnty\Push\Crypto;
 
 use Cmnty\Push\Crypto\AuthenticationSecret;
 use Cmnty\Push\Crypto\Cipher;
+use Cmnty\Push\Crypto\ContentEncryptionKey;
+use Cmnty\Push\Crypto\Crypt;
 use Cmnty\Push\Crypto\Cryptograph;
+use Cmnty\Push\Crypto\Nonce;
 use Cmnty\Push\Crypto\PublicKey;
+use Cmnty\Push\Crypto\Salt;
 use Cmnty\Push\PushNotification;
 use Cmnty\Push\Subscription;
 use Mdanter\Ecc\EccFactory;
 use PhpSpec\ObjectBehavior;
+use Prophecy\Argument;
 
 class CryptographSpec extends ObjectBehavior
 {
+    function let(Crypt $crypt, Cipher $cipher)
+    {
+        $this->beConstructedWith($crypt);
+
+        $crypt->encrypt(
+            Argument::type('string'),
+            Argument::type(ContentEncryptionKey::class),
+            Argument::type(Nonce::class),
+            Argument::type(Salt::class),
+            Argument::type(PublicKey::class)
+        )->willReturn($cipher);
+    }
+
     function it_is_initializable()
     {
         $this->shouldHaveType(Cryptograph::class);

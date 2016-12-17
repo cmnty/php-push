@@ -12,13 +12,21 @@
     ],
     "require": {
         "php": "~7.0",
-        "ext-crypto": "*",
         "guzzlehttp/guzzle": "~6.2.1",
         "mdanter/ecc": "~0.4.0",
         "spomky-labs/base64url": "~1.0"
     },
     "require-dev": {
-        "phpspec/phpspec": "~3.1"
+        "ext-crypto": "*",
+        "lib-openssl": "*",
+        "spomky-labs/php-aes-gcm": "~1.0",
+        "phpspec/phpspec": "~3.2",
+        "phpspec/prophecy": "~1.6"
+    },
+    "suggest": {
+        "ext-crypto": "Use ext-crypto to encrypt the notifications",
+        "lib-openssl": "Use lib-openssl to encrypt the notifications",
+        "spomky-labs/php-aes-gcm": "Use native php to encrypt the notifications. This is significantly slower than the alternatives."
     },
     "autoload": {
         "psr-4": {
