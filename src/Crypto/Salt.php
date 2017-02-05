@@ -32,7 +32,7 @@ class Salt implements RawBytes
      *
      * @return string
      */
-    public function getRawBytes() : string
+    public function getRawBytes(): string
     {
         return $this->binaryString->getRawBytes();
     }
@@ -42,7 +42,7 @@ class Salt implements RawBytes
      *
      * @return string
      */
-    public function getBase64UrlEncodedString() : string
+    public function getBase64UrlEncodedString(): string
     {
         return $this->binaryString->getBase64UrlEncodedString();
     }

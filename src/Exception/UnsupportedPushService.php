@@ -13,7 +13,7 @@ class UnsupportedPushService extends Exception
      *
      * @return UnsupportedPushService
      */
-    public static function forHost($host)
+    public static function forHost($host): UnsupportedPushService
     {
         return new static("The provided push service ($host) is not supported. You can add support by writing your own Cmnty\Push\PushService.");
     }

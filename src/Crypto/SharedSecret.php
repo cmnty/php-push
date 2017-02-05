@@ -32,7 +32,7 @@ class SharedSecret implements KeyingMaterial
      *
      * @return string
      */
-    public function getRawKeyMaterial() : string
+    public function getRawKeyMaterial(): string
     {
         return $this->sharedSecret->getRawBytes();
     }

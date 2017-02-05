@@ -32,7 +32,7 @@ class ContentEncryptionKey implements KeyingMaterial
      *
      * @return string
      */
-    public function getRawKeyMaterial() : string
+    public function getRawKeyMaterial(): string
     {
         return $this->binaryString->getRawBytes();
     }

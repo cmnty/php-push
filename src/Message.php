@@ -42,7 +42,7 @@ class Message implements PushMessage
      *
      * @return string
      */
-    public function getBody() : string
+    public function getBody(): string
     {
         return
             $this->cipher->getCipherText()->getRawBytes()
@@ -55,7 +55,7 @@ class Message implements PushMessage
      *
      * @return string A base64url encoded representation of the salt used.
      */
-    public function getSalt() : string
+    public function getSalt(): string
     {
         return $this->cipher->getSalt()->getBase64UrlEncodedString();
     }
@@ -65,7 +65,7 @@ class Message implements PushMessage
      *
      * @return string A base64url encoded representation of the public key.
      */
-    public function getCryptoKey() : string
+    public function getCryptoKey(): string
     {
         return $this->cipher->getPublicKey()->getBase64UrlEncodedString();
     }
@@ -75,7 +75,7 @@ class Message implements PushMessage
      *
      * @return int
      */
-    public function getContentLength() : int
+    public function getContentLength(): int
     {
         return strlen($this->getBody());
     }
@@ -85,7 +85,7 @@ class Message implements PushMessage
      *
      * @return PushSubscription
      */
-    public function getPushSubscription() : PushSubscription
+    public function getPushSubscription(): PushSubscription
     {
         return $this->subscription;
     }
@@ -95,7 +95,7 @@ class Message implements PushMessage
      *
      * @return int
      */
-    public function getTTL() : int
+    public function getTTL(): int
     {
         return $this->ttl;
     }

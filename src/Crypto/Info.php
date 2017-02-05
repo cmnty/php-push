@@ -26,7 +26,7 @@ class Info
         $this->senderPublicKey = $senderPublicKey;
     }
 
-    public function getContentEncoding(string $type) : string
+    public function getContentEncoding(string $type): string
     {
         if ($type === 'auth') {
             return

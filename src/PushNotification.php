@@ -16,21 +16,21 @@ interface PushNotification
      *
      * @return string
      */
-    public function json() : string;
+    public function json(): string;
 
     /**
      * Get the title.
      *
      * @return string
      */
-    public function getTitle() : string;
+    public function getTitle(): string;
 
     /**
      * Get the body.
      *
      * @return string
      */
-    public function getBody() : string;
+    public function getBody(): string;
 
     /**
      * Get the body.

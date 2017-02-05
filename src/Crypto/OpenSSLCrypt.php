@@ -29,7 +29,7 @@ class OpenSSLCrypt implements Crypt
      *
      * @return Cipher
      */
-    public function encrypt(string $plainText, ContentEncryptionKey $contentEncryptionKey, Nonce $nonce, Salt $salt, PublicKey $senderPublicKey) : Cipher
+    public function encrypt(string $plainText, ContentEncryptionKey $contentEncryptionKey, Nonce $nonce, Salt $salt, PublicKey $senderPublicKey): Cipher
     {
         $encryptedText = openssl_encrypt($plainText, 'aes-128-gcm', $contentEncryptionKey->getRawKeyMaterial(), OPENSSL_RAW_DATA, $nonce->getRawBytes(), $tag);
 

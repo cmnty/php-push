@@ -28,7 +28,7 @@ class BinaryString implements RawBytes
      *
      * @return self
      */
-    public static function createFromBase64UrlEncodedString(string $base64UrlEncoded) : self
+    public static function createFromBase64UrlEncodedString(string $base64UrlEncoded): self
     {
         return new self(Base64Url::decode($base64UrlEncoded));
     }
@@ -38,7 +38,7 @@ class BinaryString implements RawBytes
      *
      * @return string
      */
-    public function getRawBytes() : string
+    public function getRawBytes(): string
     {
         return $this->rawBytes;
     }
@@ -48,7 +48,7 @@ class BinaryString implements RawBytes
      *
      * @return string
      */
-    public function getBase64UrlEncodedString() : string
+    public function getBase64UrlEncodedString(): string
     {
         return Base64Url::encode($this->getRawBytes());
     }
@@ -58,7 +58,7 @@ class BinaryString implements RawBytes
      *
      * @return int
      */
-    public function getLength() : int
+    public function getLength(): int
     {
         return strlen($this->getRawBytes());
     }
@@ -70,7 +70,7 @@ class BinaryString implements RawBytes
      *
      * @return BinaryString
      */
-    public function concat(BinaryString $binaryString) : BinaryString
+    public function concat(BinaryString $binaryString): BinaryString
     {
         return new BinaryString($this->getRawBytes() . $binaryString->getRawBytes());
     }
@@ -82,7 +82,7 @@ class BinaryString implements RawBytes
      *
      * @return BinaryString
      */
-    public function slice(int $length) : BinaryString
+    public function slice(int $length): BinaryString
     {
         return new BinaryString(substr($this->getRawBytes(), 0, $length));
     }

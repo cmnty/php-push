@@ -15,5 +15,5 @@ interface Crypt
      *
      * @return Cipher
      */
-    public function encrypt(string $plainText, ContentEncryptionKey $contentEncryptionKey, Nonce $nonce, Salt $salt, PublicKey $privateKey) : Cipher;
+    public function encrypt(string $plainText, ContentEncryptionKey $contentEncryptionKey, Nonce $nonce, Salt $salt, PublicKey $privateKey): Cipher;
 }

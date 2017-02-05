@@ -32,7 +32,7 @@ class Nonce implements RawBytes
      *
      * @return string
      */
-    public function getRawBytes() : string
+    public function getRawBytes(): string
     {
         return $this->binaryString->getRawBytes();
     }

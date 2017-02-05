@@ -45,7 +45,7 @@ class Cipher
      *
      * @return CipherText
      */
-    public function getCipherText() : CipherText
+    public function getCipherText(): CipherText
     {
         return $this->cipherText;
     }
@@ -55,7 +55,7 @@ class Cipher
      *
      * @return AuthenticationTag
      */
-    public function getAuthenticationTag() : AuthenticationTag
+    public function getAuthenticationTag(): AuthenticationTag
     {
         return $this->authenticationTag;
     }
@@ -65,7 +65,7 @@ class Cipher
      *
      * @return Salt
      */
-    public function getSalt() : Salt
+    public function getSalt(): Salt
     {
         return $this->salt;
     }
@@ -75,7 +75,7 @@ class Cipher
      *
      * @return PublicKey
      */
-    public function getPublicKey() : PublicKey
+    public function getPublicKey(): PublicKey
     {
         return $this->publicKey;
     }

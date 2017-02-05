@@ -18,7 +18,7 @@ class PrivateKey
      *
      * @return self
      */
-    public static function createFromEccKey(PrivateKeyInterface $eccKey) : self
+    public static function createFromEccKey(PrivateKeyInterface $eccKey): self
     {
         $key = new self();
         $key->eccKey = $eccKey;
@@ -31,7 +31,7 @@ class PrivateKey
      *
      * @return PublicKey
      */
-    public function getPublicKey() : PublicKey
+    public function getPublicKey(): PublicKey
     {
         return PublicKey::createFromEccKey($this->getEccKey()->getPublicKey());
     }
@@ -41,7 +41,7 @@ class PrivateKey
      *
      * @return PrivateKeyInterface
      */
-    public function getEccKey() : PrivateKeyInterface
+    public function getEccKey(): PrivateKeyInterface
     {
         return $this->eccKey;
     }
@@ -53,7 +53,7 @@ class PrivateKey
      *
      * @return SharedSecret
      */
-    public function calculateSharedSecret(PublicKey $publicKey) : SharedSecret
+    public function calculateSharedSecret(PublicKey $publicKey): SharedSecret
     {
         $exchange = $this->getEccKey()->createExchange($publicKey->getEccKey());
         $binary = new BinaryString(gmp_export($exchange->calculateSharedKey()));

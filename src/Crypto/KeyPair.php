@@ -41,7 +41,7 @@ class KeyPair
      *
      * @return PrivateKey
      */
-    public function getPrivateKey() : PrivateKey
+    public function getPrivateKey(): PrivateKey
     {
         return $this->private;
     }
@@ -51,7 +51,7 @@ class KeyPair
      *
      * @return PublicKey
      */
-    public function getPublicKey() : PublicKey
+    public function getPublicKey(): PublicKey
     {
         if ($this->public === null) {
             $this->public = $this->private->getPublicKey();
@@ -68,7 +68,7 @@ class KeyPair
      *
      * @return bool
      */
-    private function isValidKeyPair(PrivateKey $private, PublicKey $public = null) : bool
+    private function isValidKeyPair(PrivateKey $private, PublicKey $public = null): bool
     {
         // If no public key was supplied, the public key will be extracted from the private key.
         if ($public === null) {

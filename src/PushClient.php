@@ -16,7 +16,7 @@ interface PushClient
      *
      * @return ResponseInterface
      */
-    public function pushNotification(PushNotification $notification, PushSubscription $subscription, int $ttl = 3600) : ResponseInterface;
+    public function pushNotification(PushNotification $notification, PushSubscription $subscription, int $ttl = 3600): ResponseInterface;
 
     /**
      * Send a push notification asynchronously.
@@ -27,5 +27,5 @@ interface PushClient
      *
      * @return PromiseInterface
      */
-    public function pushNotificationAsync(PushNotification $notification, PushSubscription $subscription, int $ttl = 3600) : PromiseInterface;
+    public function pushNotificationAsync(PushNotification $notification, PushSubscription $subscription, int $ttl = 3600): PromiseInterface;
 }

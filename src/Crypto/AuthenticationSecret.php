@@ -36,7 +36,7 @@ class AuthenticationSecret implements RawBytes
      *
      * @throws InvalidArgumentException When the authentication secret is not the correct length.
      */
-    public static function createFromBase64UrlEncodedString(string $base64UrlEncoded) : self
+    public static function createFromBase64UrlEncodedString(string $base64UrlEncoded): self
     {
         return new self(BinaryString::createFromBase64UrlEncodedString($base64UrlEncoded));
     }
@@ -46,7 +46,7 @@ class AuthenticationSecret implements RawBytes
      *
      * @return string
      */
-    public function getRawBytes() : string
+    public function getRawBytes(): string
     {
         return $this->binaryString->getRawBytes();
     }
@@ -56,7 +56,7 @@ class AuthenticationSecret implements RawBytes
      *
      * @return string
      */
-    public function getBase64UrlEncodedString() : string
+    public function getBase64UrlEncodedString(): string
     {
         return $this->binaryString->getBase64UrlEncodedString();
     }

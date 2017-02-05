@@ -46,7 +46,7 @@ class AggregateCrypt implements Crypt
      *
      * @return Cipher
      */
-    public function encrypt(string $plainText, ContentEncryptionKey $contentEncryptionKey, Nonce $nonce, Salt $salt, PublicKey $senderPublicKey) : Cipher
+    public function encrypt(string $plainText, ContentEncryptionKey $contentEncryptionKey, Nonce $nonce, Salt $salt, PublicKey $senderPublicKey): Cipher
     {
         return $this->crypt->encrypt($plainText, $contentEncryptionKey, $nonce, $salt, $senderPublicKey);
     }

@@ -41,7 +41,7 @@ class Subscription implements PushSubscription
      *
      * @return Endpoint
      */
-    public function getEndpoint() : Endpoint
+    public function getEndpoint(): Endpoint
     {
         return $this->endpoint;
     }
@@ -51,7 +51,7 @@ class Subscription implements PushSubscription
      *
      * @return PublicKey
      */
-    public function getPublicKey() : PublicKey
+    public function getPublicKey(): PublicKey
     {
         return $this->publicKey;
     }
@@ -61,7 +61,7 @@ class Subscription implements PushSubscription
      *
      * @return AuthenticationSecret
      */
-    public function getAuthenticationSecret() : AuthenticationSecret
+    public function getAuthenticationSecret(): AuthenticationSecret
     {
         return $this->authenticationSecret;
     }

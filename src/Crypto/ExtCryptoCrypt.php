@@ -34,7 +34,7 @@ class ExtCryptoCrypt implements Crypt
      *
      * @return Cipher
      */
-    public function encrypt(string $plainText, ContentEncryptionKey $contentEncryptionKey, Nonce $nonce, Salt $salt, PublicKey $senderPublicKey) : Cipher
+    public function encrypt(string $plainText, ContentEncryptionKey $contentEncryptionKey, Nonce $nonce, Salt $salt, PublicKey $senderPublicKey): Cipher
     {
         $cipher = new ExtCryptoCipher('aes-128-gcm');
         $cipherText = new CipherText(new BinaryString($cipher->encrypt($plainText, $contentEncryptionKey->getRawKeyMaterial(), $nonce->getRawBytes())));

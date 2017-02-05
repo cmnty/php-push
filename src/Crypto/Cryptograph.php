@@ -37,7 +37,7 @@ class Cryptograph
      *
      * @return Cipher
      */
-    public function encrypt(PushNotification $notification, Subscription $subscription) : Cipher
+    public function encrypt(PushNotification $notification, Subscription $subscription): Cipher
     {
         $plainText = $this->addPadding($notification->json());
 
@@ -71,7 +71,7 @@ class Cryptograph
      *
      * @return string
      */
-    private function addPadding(string $notification) : string
+    private function addPadding(string $notification): string
     {
         $length = $this->length;
 

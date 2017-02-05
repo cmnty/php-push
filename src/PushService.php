@@ -13,7 +13,7 @@ interface PushService
      *
      * @return bool
      */
-    public function supportsHost(string $host) : bool;
+    public function supportsHost(string $host): bool;
 
     /**
      * Create a push request.
@@ -22,5 +22,5 @@ interface PushService
      *
      * @return RequestInterface
      */
-    public function createRequest(PushMessage $message) : RequestInterface;
+    public function createRequest(PushMessage $message): RequestInterface;
 }

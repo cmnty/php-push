@@ -9,5 +9,5 @@ interface RawBytes
      *
      * @return string
      */
-    public function getRawBytes() : string;
+    public function getRawBytes(): string;
 }

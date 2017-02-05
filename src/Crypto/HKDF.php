@@ -16,7 +16,7 @@ class HKDF
      *
      * @return BinaryString
      */
-    public function __invoke(RawBytes $salt, KeyingMaterial $keyingMaterial, string $info, int $length) : BinaryString
+    public function __invoke(RawBytes $salt, KeyingMaterial $keyingMaterial, string $info, int $length): BinaryString
     {
         return $this->extractAndExpand($salt, $keyingMaterial, $info, $length);
     }
@@ -33,7 +33,7 @@ class HKDF
      *
      * @return BinaryString
      */
-    public function extractAndExpand(RawBytes $salt, KeyingMaterial $keyingMaterial, string $info, int $length) : BinaryString
+    public function extractAndExpand(RawBytes $salt, KeyingMaterial $keyingMaterial, string $info, int $length): BinaryString
     {
         $pseudoRandomKey = $this->extract($salt, $keyingMaterial);
         $outputKeyingMaterial = $this->expand($pseudoRandomKey, $info, $length);
@@ -51,7 +51,7 @@ class HKDF
      *
      * @return BinaryString
      */
-    private function extract(RawBytes $salt, KeyingMaterial $keyingMaterial) : BinaryString
+    private function extract(RawBytes $salt, KeyingMaterial $keyingMaterial): BinaryString
     {
         return new BinaryString(hash_hmac('sha256', $keyingMaterial->getRawKeyMaterial(), $salt->getRawBytes(), true));
     }
@@ -67,7 +67,7 @@ class HKDF
      *
      * @return BinaryString
      */
-    private function expand(RawBytes $pseudoRandomKey, string $info, int $length) : BinaryString
+    private function expand(RawBytes $pseudoRandomKey, string $info, int $length): BinaryString
     {
         $T = new BinaryString('');
         $outputKeyingMaterial = new BinaryString('');

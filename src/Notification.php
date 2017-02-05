@@ -55,7 +55,7 @@ class Notification implements PushNotification
      *
      * @return string
      */
-    public function json() : string
+    public function json(): string
     {
         return json_encode([
             'title' => $this->title,
@@ -70,7 +70,7 @@ class Notification implements PushNotification
      *
      * @return string
      */
-    public function getTitle() : string
+    public function getTitle(): string
     {
         return $this->title;
     }
@@ -80,7 +80,7 @@ class Notification implements PushNotification
      *
      * @return string
      */
-    public function getBody() : string
+    public function getBody(): string
     {
         return $this->body;
     }

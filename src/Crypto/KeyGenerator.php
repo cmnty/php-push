@@ -11,7 +11,7 @@ class KeyGenerator
      *
      * @return KeyPair
      */
-    public function generateKeyPair() : KeyPair
+    public function generateKeyPair(): KeyPair
     {
         $generator = EccFactory::getNistCurves()->generator256();
 

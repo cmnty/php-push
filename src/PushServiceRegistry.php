@@ -28,7 +28,7 @@ class PushServiceRegistry
      *
      * @return bool
      */
-    public function hasPushService($host) : bool
+    public function hasPushService($host): bool
     {
         foreach ($this->pushServices as $pushService) {
             if ($pushService->supportsHost($host)) {
@@ -48,7 +48,7 @@ class PushServiceRegistry
      *
      * @throws UnsupportedPushService When no push service that supports the given host is found.
      */
-    public function getPushService($host) : PushService
+    public function getPushService($host): PushService
     {
         foreach ($this->pushServices as $pushService) {
             if ($pushService->supportsHost($host)) {

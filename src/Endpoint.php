@@ -24,7 +24,7 @@ class Endpoint
      *
      * @return string
      */
-    public function getUrl() : string
+    public function getUrl(): string
     {
         return $this->url;
     }
@@ -34,7 +34,7 @@ class Endpoint
      *
      * @return string
      */
-    public function getHost() : string
+    public function getHost(): string
     {
         return parse_url($this->url, PHP_URL_HOST);
     }
@@ -44,7 +44,7 @@ class Endpoint
      *
      * @return string
      */
-    public function getRegistrationId() : string
+    public function getRegistrationId(): string
     {
         preg_match('{^(\S+)(?:/)(?P<registrationId>[^/]+)}', $this->url, $matches);
 

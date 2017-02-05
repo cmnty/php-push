@@ -29,7 +29,7 @@ class GooglePushService implements PushService
      *
      * @return bool
      */
-    public function supportsHost(string $host) : bool
+    public function supportsHost(string $host): bool
     {
         return in_array($host, [
             'android.googleapis.com',
@@ -44,7 +44,7 @@ class GooglePushService implements PushService
      *
      * @return RequestInterface
      */
-    public function createRequest(PushMessage $message) : RequestInterface
+    public function createRequest(PushMessage $message): RequestInterface
     {
         $request = new Request(
             'POST',
@@ -63,7 +63,7 @@ class GooglePushService implements PushService
      *
      * @return string
      */
-    private function getUri(PushMessage $message) : string
+    private function getUri(PushMessage $message): string
     {
         return 'https://fcm.googleapis.com/fcm/send/'.$message->getPushSubscription()->getEndpoint()->getRegistrationId();
     }
@@ -75,7 +75,7 @@ class GooglePushService implements PushService
      *
      * @return string[]
      */
-    private function getHeaders(PushMessage $message) : array
+    private function getHeaders(PushMessage $message): array
     {
         return [
             'Authorization' => 'key='.$this->apiKey,
@@ -95,7 +95,7 @@ class GooglePushService implements PushService
      *
      * @return string
      */
-    private function getBody(PushMessage $message) : string
+    private function getBody(PushMessage $message): string
     {
         return $message->getBody();
     }

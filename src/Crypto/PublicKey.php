@@ -39,7 +39,7 @@ class PublicKey implements KeyingMaterial
      *
      * @throws InvalidArgumentException When the public key is not the correct length.
      */
-    public static function createFromBase64UrlEncodedString(string $base64UrlEncoded) : self
+    public static function createFromBase64UrlEncodedString(string $base64UrlEncoded): self
     {
         return new self(BinaryString::createFromBase64UrlEncodedString($base64UrlEncoded));
     }
@@ -51,7 +51,7 @@ class PublicKey implements KeyingMaterial
      *
      * @throws InvalidArgumentException When the public key is not the correct length.
      */
-    public static function createFromEccKey(PublicKeyInterface $eccKey) : self
+    public static function createFromEccKey(PublicKeyInterface $eccKey): self
     {
         $math = EccFactory::getAdapter();
         $pointSerializer = new UncompressedPointSerializer($math);
@@ -68,7 +68,7 @@ class PublicKey implements KeyingMaterial
      *
      * @return string
      */
-    public function getRawKeyMaterial() : string
+    public function getRawKeyMaterial(): string
     {
         return $this->binaryString->getRawBytes();
     }
@@ -78,7 +78,7 @@ class PublicKey implements KeyingMaterial
      *
      * @return string
      */
-    public function getBase64UrlEncodedString() : string
+    public function getBase64UrlEncodedString(): string
     {
         return $this->binaryString->getBase64UrlEncodedString();
     }
@@ -88,7 +88,7 @@ class PublicKey implements KeyingMaterial
      *
      * @return PublicKeyInterface
      */
-    public function getEccKey() : PublicKeyInterface
+    public function getEccKey(): PublicKeyInterface
     {
         $math = EccFactory::getAdapter();
         $generator = EccFactory::getNistCurves()->generator256();
@@ -103,7 +103,7 @@ class PublicKey implements KeyingMaterial
      *
      * @return int
      */
-    public function getLength() : int
+    public function getLength(): int
     {
         return $this->binaryString->getLength();
     }

@@ -14,7 +14,7 @@ class MozillaPushService implements PushService
      *
      * @return bool
      */
-    public function supportsHost(string $host) : bool
+    public function supportsHost(string $host): bool
     {
         return in_array($host, [
             'updates.push.services.mozilla.com',
@@ -28,7 +28,7 @@ class MozillaPushService implements PushService
      *
      * @return RequestInterface
      */
-    public function createRequest(PushMessage $message) : RequestInterface
+    public function createRequest(PushMessage $message): RequestInterface
     {
         $request = new Request(
             'POST',
@@ -47,7 +47,7 @@ class MozillaPushService implements PushService
      *
      * @return string
      */
-    private function getUrl(PushMessage $message) : string
+    private function getUrl(PushMessage $message): string
     {
         return $message->getPushSubscription()->getEndpoint()->getUrl();
     }
@@ -59,7 +59,7 @@ class MozillaPushService implements PushService
      *
      * @return string[]
      */
-    private function getHeaders(PushMessage $message) : array
+    private function getHeaders(PushMessage $message): array
     {
         return [
             'Content-Type' => 'application/json',
@@ -78,7 +78,7 @@ class MozillaPushService implements PushService
      *
      * @return string
      */
-    private function getBody(PushMessage $message) : string
+    private function getBody(PushMessage $message): string
     {
         return $message->getBody();
     }

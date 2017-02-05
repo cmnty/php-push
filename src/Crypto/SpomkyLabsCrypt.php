@@ -30,7 +30,7 @@ class SpomkyLabsCrypt implements Crypt
      *
      * @return Cipher
      */
-    public function encrypt(string $plainText, ContentEncryptionKey $contentEncryptionKey, Nonce $nonce, Salt $salt, PublicKey $senderPublicKey) : Cipher
+    public function encrypt(string $plainText, ContentEncryptionKey $contentEncryptionKey, Nonce $nonce, Salt $salt, PublicKey $senderPublicKey): Cipher
     {
         list($encryptedText, $tag) = AESGCM::encrypt($contentEncryptionKey->getRawKeyMaterial(), $nonce->getRawBytes(), $plainText, '');
 

@@ -48,7 +48,7 @@ class Client implements PushClient
      *
      * @return ResponseInterface
      */
-    public function pushNotification(PushNotification $notification, PushSubscription $subscription, int $ttl = 3600) : ResponseInterface
+    public function pushNotification(PushNotification $notification, PushSubscription $subscription, int $ttl = 3600): ResponseInterface
     {
         return $this->pushNotificationAsync($notification, $subscription, $ttl)->wait();
     }
@@ -62,7 +62,7 @@ class Client implements PushClient
      *
      * @return PromiseInterface
      */
-    public function pushNotificationAsync(PushNotification $notification, PushSubscription $subscription, int $ttl = 3600) : PromiseInterface
+    public function pushNotificationAsync(PushNotification $notification, PushSubscription $subscription, int $ttl = 3600): PromiseInterface
     {
         $cipher = $this->cryptograph->encrypt($notification, $subscription);
 
