@@ -31,6 +31,27 @@ class SubscriptionSpec extends ObjectBehavior
         $this->getEndpoint()->shouldReturn($endpoint);
     }
 
+    function it_should_contain_the_host_of_the_endpoint(Endpoint $endpoint)
+    {
+        $endpoint->getHost()->willReturn('host');
+
+        $this->getEndpointHost()->shouldBeString();
+    }
+
+    function it_should_contain_the_url_of_the_endpoint(Endpoint $endpoint)
+    {
+        $endpoint->getUrl()->willReturn('https://domain.tld');
+
+        $this->getEndpointUrl()->shouldBeString();
+    }
+
+    function it_should_contain_the_registration_id_of_the_endpoint(Endpoint $endpoint)
+    {
+        $endpoint->getRegistrationId()->willReturn('registration_id');
+
+        $this->getEndpointRegistrationId()->shouldBeString();
+    }
+
     function it_should_contain_a_public_key(PublicKey $key)
     {
         $this->getPublicKey()->shouldReturn($key);

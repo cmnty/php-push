@@ -13,7 +13,7 @@ use Psr\Http\Message\RequestInterface;
 
 class AggregatePushServiceSpec extends ObjectBehavior
 {
-    function let(PushServiceRegistry $registry, PushService $service, PushMessage $message, RequestInterface $request, PushSubscription $subscription, Endpoint $endpoint)
+    function let(PushServiceRegistry $registry, PushService $service, PushMessage $message, RequestInterface $request)
     {
         $this->beConstructedWith($registry);
 
@@ -22,11 +22,7 @@ class AggregatePushServiceSpec extends ObjectBehavior
 
         $service->createRequest($message)->willReturn($request);
 
-        $message->getPushSubscription()->willReturn($subscription);
-
-        $subscription->getEndpoint()->willReturn($endpoint);
-
-        $endpoint->getHost()->willReturn('example.com');
+        $message->getEndpointHost()->willReturn('example.com');
     }
 
     function it_is_initializable()

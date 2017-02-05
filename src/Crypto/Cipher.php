@@ -51,6 +51,16 @@ class Cipher
     }
 
     /**
+     * Get raw cypher text.
+     *
+     * @return string
+     */
+    public function getRawCipherText(): string
+    {
+        return $this->cipherText->getRawBytes();
+    }
+
+    /**
      * Get the authentication tag.
      *
      * @return AuthenticationTag
@@ -58,6 +68,16 @@ class Cipher
     public function getAuthenticationTag(): AuthenticationTag
     {
         return $this->authenticationTag;
+    }
+
+    /**
+     * Get raw authentication tag.
+     *
+     * @return string
+     */
+    public function getRawAuthenticationTag(): string
+    {
+        return $this->authenticationTag->getRawBytes();
     }
 
     /**
@@ -71,6 +91,16 @@ class Cipher
     }
 
     /**
+     * Get base64url encoded salt used during encryption.
+     *
+     * @return Salt
+     */
+    public function getBase64UrlEncodedSalt(): string
+    {
+        return $this->salt->getBase64UrlEncodedString();
+    }
+
+    /**
      * Get the public key
      *
      * @return PublicKey
@@ -78,5 +108,15 @@ class Cipher
     public function getPublicKey(): PublicKey
     {
         return $this->publicKey;
+    }
+
+    /**
+     * Get base64url encoded public key
+     *
+     * @return PublicKey
+     */
+    public function getBase64UrlEncodedPublicKey(): string
+    {
+        return $this->publicKey->getBase64UrlEncodedString();
     }
 }

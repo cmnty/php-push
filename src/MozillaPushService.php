@@ -49,7 +49,7 @@ class MozillaPushService implements PushService
      */
     private function getUrl(PushMessage $message): string
     {
-        return $message->getPushSubscription()->getEndpoint()->getUrl();
+        return $message->getEndpointUrl();
     }
 
     /**

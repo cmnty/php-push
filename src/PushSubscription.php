@@ -15,6 +15,27 @@ interface PushSubscription
     public function getEndpoint(): Endpoint;
 
     /**
+     * Get the endpoint host.
+     *
+     * @return string
+     */
+    public function getEndpointHost(): string;
+
+    /**
+     * Get the endpoint url.
+     *
+     * @return string
+     */
+    public function getEndpointUrl(): string;
+
+    /**
+     * Get the endpoint registration id.
+     *
+     * @return string
+     */
+    public function getEndpointRegistrationId(): string;
+
+    /**
      * Get the public key.
      *
      * @return PublicKey

@@ -65,7 +65,7 @@ class GooglePushService implements PushService
      */
     private function getUri(PushMessage $message): string
     {
-        return 'https://fcm.googleapis.com/fcm/send/'.$message->getPushSubscription()->getEndpoint()->getRegistrationId();
+        return 'https://fcm.googleapis.com/fcm/send/'.$message->getEndpointRegistrationId();
     }
 
     /**

@@ -35,11 +35,32 @@ interface PushMessage
     public function getContentLength(): int;
 
     /**
-     * Get message subscription.
+     * Get push subscription.
      *
      * @return PushSubscription
      */
     public function getPushSubscription(): PushSubscription;
+
+    /**
+     * Get the endpoint host from the push subscription.
+     *
+     * @return string
+     */
+    public function getEndpointHost(): string;
+
+    /**
+     * Get the endpoint url from the push subscription.
+     *
+     * @return string
+     */
+    public function getEndpointUrl(): string;
+
+    /**
+     * Get the endpoint registration id from the push subscription.
+     *
+     * @return string
+     */
+    public function getEndpointRegistrationId(): string;
 
     /**
      * Get message ttl.

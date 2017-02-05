@@ -45,7 +45,7 @@ class AggregatePushService implements PushService
      */
     public function createRequest(PushMessage $message): RequestInterface
     {
-        $host = $message->getPushSubscription()->getEndpoint()->getHost();
+        $host = $message->getEndpointHost();
         $pushService = $this->pushServiceRegistry->getPushService($host);
 
         return $pushService->createRequest($message);

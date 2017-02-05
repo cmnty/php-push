@@ -30,38 +30,32 @@ class MessageSpec extends ObjectBehavior
         $this->shouldImplement(PushMessage::class);
     }
 
-    function it_should_contain_the_message_body(Cipher $cipher, CipherText $cipherText, AuthenticationTag $tag)
+    function it_should_contain_the_message_body(Cipher $cipher)
     {
-        $cipher->getCipherText()->willReturn($cipherText);
-        $cipherText->getRawBytes()->willReturn('raw_bytes');
-        $cipher->getAuthenticationTag()->willReturn($tag);
-        $tag->getRawBytes()->willReturn('raw_bytes');
+        $cipher->getRawCipherText()->willReturn('raw_bytes');
+        $cipher->getRawAuthenticationTag()->willReturn('raw_bytes');
 
         $this->getBody()->shouldBeString();
     }
 
-    function it_should_contain_the_used_salt(Cipher $cipher, Salt $salt)
+    function it_should_contain_the_used_salt(Cipher $cipher)
     {
-        $cipher->getSalt()->willReturn($salt);
-        $salt->getBase64UrlEncodedString()->willReturn('base64url');
+        $cipher->getBase64UrlEncodedSalt()->willReturn('base64url');
 
         $this->getSalt()->shouldBeString();
     }
 
-    function it_should_contain_the_used_public_key(Cipher $cipher, PublicKey $key)
+    function it_should_contain_the_used_public_key(Cipher $cipher)
     {
-        $cipher->getPublicKey()->willReturn($key);
-        $key->getBase64UrlEncodedString()->willReturn('base64url');
+        $cipher->getBase64UrlEncodedPublicKey()->willReturn('base64url');
 
         $this->getCryptoKey()->shouldBeString();
     }
 
-    function it_should_contain_the_content_length(Cipher $cipher, CipherText $cipherText, AuthenticationTag $tag)
+    function it_should_contain_the_content_length(Cipher $cipher)
     {
-        $cipher->getCipherText()->willReturn($cipherText);
-        $cipherText->getRawBytes()->willReturn('raw_bytes');
-        $cipher->getAuthenticationTag()->willReturn($tag);
-        $tag->getRawBytes()->willReturn('raw_bytes');
+        $cipher->getRawCipherText()->willReturn('raw_bytes');
+        $cipher->getRawAuthenticationTag()->willReturn('raw_bytes');
 
         $this->getContentLength()->shouldBeInt();
     }
@@ -69,6 +63,27 @@ class MessageSpec extends ObjectBehavior
     function it_should_contain_a_push_subscription(PushSubscription $subscription)
     {
         $this->getPushSubscription()->shouldReturn($subscription);
+    }
+
+    function it_should_contain_the_host_of_the_push_subscription_endpoint(PushSubscription $subscription)
+    {
+        $subscription->getEndpointHost()->willReturn('host');
+
+        $this->getEndpointHost()->shouldBeString();
+    }
+
+    function it_should_contain_the_url_of_the_push_subscription_endpoint(PushSubscription $subscription)
+    {
+        $subscription->getEndpointUrl()->willReturn('https://domain.tld');
+
+        $this->getEndpointUrl()->shouldBeString();
+    }
+
+    function it_should_contain_the_registration_id_of_the_push_subscription_endpoint(PushSubscription $subscription)
+    {
+        $subscription->getEndpointRegistrationId()->willReturn('registration_id');
+
+        $this->getEndpointRegistrationId()->shouldBeString();
     }
 
     function it_should_contain_the_time_to_live()

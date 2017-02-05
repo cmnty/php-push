@@ -45,8 +45,8 @@ class Message implements PushMessage
     public function getBody(): string
     {
         return
-            $this->cipher->getCipherText()->getRawBytes()
-            . $this->cipher->getAuthenticationTag()->getRawBytes()
+            $this->cipher->getRawCipherText()
+            . $this->cipher->getRawAuthenticationTag()
         ;
     }
 
@@ -57,7 +57,7 @@ class Message implements PushMessage
      */
     public function getSalt(): string
     {
-        return $this->cipher->getSalt()->getBase64UrlEncodedString();
+        return $this->cipher->getBase64UrlEncodedSalt();
     }
 
     /**
@@ -67,7 +67,7 @@ class Message implements PushMessage
      */
     public function getCryptoKey(): string
     {
-        return $this->cipher->getPublicKey()->getBase64UrlEncodedString();
+        return $this->cipher->getBase64UrlEncodedPublicKey();
     }
 
     /**
@@ -81,13 +81,43 @@ class Message implements PushMessage
     }
 
     /**
-     * Get message subscription.
+     * Get push subscription.
      *
      * @return PushSubscription
      */
     public function getPushSubscription(): PushSubscription
     {
         return $this->subscription;
+    }
+
+    /**
+     * Get the endpoint host from the push subscription.
+     *
+     * @return string
+     */
+    public function getEndpointHost(): string
+    {
+        return $this->subscription->getEndpointHost();
+    }
+
+    /**
+     * Get the endpoint url from the push subscription.
+     *
+     * @return string
+     */
+    public function getEndpointUrl(): string
+    {
+        return $this->subscription->getEndpointUrl();
+    }
+
+    /**
+     * Get the endpoint registration id from the push subscription.
+     *
+     * @return string
+     */
+    public function getEndpointRegistrationId(): string
+    {
+        return $this->subscription->getEndpointRegistrationId();
     }
 
     /**

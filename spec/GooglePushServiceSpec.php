@@ -12,21 +12,17 @@ use Psr\Http\Message\RequestInterface;
 
 class GooglePushServiceSpec extends ObjectBehavior
 {
-    function let(PushMessage $message, PushSubscription $subscription, Endpoint $endpoint)
+    function let(PushMessage $message)
     {
         $this->beConstructedWith('API_Key');
 
-        $message->getPushSubscription()->willReturn($subscription);
+        $message->getEndpointRegistrationId()->willReturn('registration_id');
 
         $message->getBody()->willReturn('cipher_text');
         $message->getContentLength()->willReturn(256);
         $message->getSalt()->willReturn('salt');
         $message->getCryptoKey()->willReturn('key');
         $message->getTTL()->willReturn(3600);
-
-        $subscription->getEndpoint()->willReturn($endpoint);
-
-        $endpoint->getRegistrationId()->willReturn('registration_id');
     }
 
     function it_is_initializable()

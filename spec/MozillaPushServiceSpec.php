@@ -12,19 +12,15 @@ use Psr\Http\Message\RequestInterface;
 
 class MozillaPushServiceSpec extends ObjectBehavior
 {
-    function let(PushMessage $message, PushSubscription $subscription, Endpoint $endpoint)
+    function let(PushMessage $message)
     {
-        $message->getPushSubscription()->willReturn($subscription);
+        $message->getEndpointUrl()->willReturn('https:://mozilla.push.services');
 
         $message->getBody()->willReturn('cipher_text');
         $message->getContentLength()->willReturn(256);
         $message->getSalt()->willReturn('salt');
         $message->getCryptoKey()->willReturn('key');
         $message->getTTL()->willReturn(3600);
-
-        $subscription->getEndpoint()->willReturn($endpoint);
-
-        $endpoint->getUrl()->willReturn('mozilla.push.services');
     }
 
     function it_is_initializable()

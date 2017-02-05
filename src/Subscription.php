@@ -47,6 +47,36 @@ class Subscription implements PushSubscription
     }
 
     /**
+     * Get the endpoint host.
+     *
+     * @return string
+     */
+    public function getEndpointHost(): string
+    {
+        return $this->endpoint->getHost();
+    }
+
+    /**
+     * Get the endpoint url.
+     *
+     * @return string
+     */
+    public function getEndpointUrl(): string
+    {
+        return $this->endpoint->getUrl();
+    }
+
+    /**
+     * Get the endpoint registration id.
+     *
+     * @return string
+     */
+    public function getEndpointRegistrationId(): string
+    {
+        return $this->endpoint->getRegistrationId();
+    }
+
+    /**
      * Get the public key.
      *
      * @return PublicKey
