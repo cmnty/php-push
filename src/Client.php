@@ -68,7 +68,7 @@ class Client implements PushClient
 
         $pushMessage = new Message($cipher, $subscription, $ttl);
 
-        $request = $this->pushService->createRequest($pushMessage, $subscription);
+        $request = $this->pushService->createRequest($pushMessage);
         $promise = $this->httpClient->sendAsync($request);
 
         return $promise;
