@@ -35,9 +35,11 @@ class GooglePushServiceSpec extends ObjectBehavior
         $this->shouldImplement(PushService::class);
     }
 
-    function it_should_confirm_google_is_supported()
+    function it_should_confirm_google_is_supported(Endpoint $endpoint)
     {
-        $this->supportsHost('android.googleapis.com')->shouldReturn(true);
+        $endpoint->getUrl()->willReturn('https://android.googleapis.com/gcm/send/...');
+
+        $this->supportsEndpoint($endpoint)->shouldReturn(true);
     }
 
     function it_should_create_a_request_from_a_message(PushMessage $message)

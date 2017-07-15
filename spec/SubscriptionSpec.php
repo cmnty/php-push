@@ -31,16 +31,16 @@ class SubscriptionSpec extends ObjectBehavior
         $this->getEndpoint()->shouldReturn($endpoint);
     }
 
-    function it_should_contain_the_host_of_the_endpoint(Endpoint $endpoint)
+    function it_should_contain_the_scheme_and_host_of_the_endpoint(Endpoint $endpoint)
     {
-        $endpoint->getHost()->willReturn('host');
+        $endpoint->getSchemeAndHost()->willReturn('scheme://host');
 
-        $this->getEndpointHost()->shouldBeString();
+        $this->getEndpointSchemeAndHost()->shouldBeString();
     }
 
     function it_should_contain_the_url_of_the_endpoint(Endpoint $endpoint)
     {
-        $endpoint->getUrl()->willReturn('https://domain.tld');
+        $endpoint->getUrl()->willReturn('https://example.org');
 
         $this->getEndpointUrl()->shouldBeString();
     }

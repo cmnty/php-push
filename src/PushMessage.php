@@ -42,11 +42,18 @@ interface PushMessage
     public function getPushSubscription(): PushSubscription;
 
     /**
-     * Get the endpoint host from the push subscription.
+     * Get the endpoint from the push subscription.
+     *
+     * @return Endpoint
+     */
+    public function getEndpoint(): Endpoint;
+
+    /**
+     * Get the endpoint scheme and host from the push subscription.
      *
      * @return string
      */
-    public function getEndpointHost(): string;
+    public function getEndpointSchemeAndHost(): string;
 
     /**
      * Get the endpoint url from the push subscription.

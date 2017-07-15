@@ -34,9 +34,9 @@ class Endpoint
      *
      * @return string
      */
-    public function getHost(): string
+    public function getSchemeAndHost(): string
     {
-        return parse_url($this->url, PHP_URL_HOST);
+        return parse_url($this->url, PHP_URL_SCHEME).'://'.parse_url($this->url, PHP_URL_HOST);
     }
 
     /**

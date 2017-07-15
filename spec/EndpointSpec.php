@@ -24,9 +24,9 @@ class EndpointSpec extends ObjectBehavior
         $this->getUrl()->shouldReturn(self::URL);
     }
 
-    function it_should_be_able_to_extract_the_host()
+    function it_should_be_able_to_extract_the_scheme_and_host()
     {
-        $this->getHost()->shouldReturn('example.com');
+        $this->getSchemeAndHost()->shouldReturn('https://example.com');
     }
 
     function it_should_be_able_to_extract_the_registration_id()

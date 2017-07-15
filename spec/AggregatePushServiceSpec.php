@@ -13,16 +13,18 @@ use Psr\Http\Message\RequestInterface;
 
 class AggregatePushServiceSpec extends ObjectBehavior
 {
-    function let(PushServiceRegistry $registry, PushService $service, PushMessage $message, RequestInterface $request)
+    function let(PushServiceRegistry $registry, Endpoint $endpoint, PushService $service, PushMessage $message, RequestInterface $request)
     {
         $this->beConstructedWith($registry);
 
-        $registry->hasPushService('example.com')->willReturn(true);
-        $registry->getPushService('example.com')->willReturn($service);
+        $endpoint->getUrl()->willReturn('https://example.org');
+
+        $registry->hasPushService($endpoint)->willReturn(true);
+        $registry->getPushService($endpoint)->willReturn($service);
 
         $service->createRequest($message)->willReturn($request);
 
-        $message->getEndpointHost()->willReturn('example.com');
+        $message->getEndpoint()->willReturn($endpoint);
     }
 
     function it_is_initializable()
@@ -35,9 +37,9 @@ class AggregatePushServiceSpec extends ObjectBehavior
         $this->shouldImplement(PushService::class);
     }
 
-    function it_should_confirm_a_host_is_supported()
+    function it_should_confirm_an_endpoint_is_supported(Endpoint $endpoint)
     {
-        $this->supportsHost('example.com')->shouldReturn(true);
+        $this->supportsEndpoint($endpoint)->shouldReturn(true);
     }
 
     function it_should_create_a_request_from_a_message(PushMessage $message, RequestInterface $request)

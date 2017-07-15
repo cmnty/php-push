@@ -91,13 +91,23 @@ class Message implements PushMessage
     }
 
     /**
-     * Get the endpoint host from the push subscription.
+     * Get the endpoint.
+     *
+     * @return Endpoint
+     */
+    public function getEndpoint(): Endpoint
+    {
+        return $this->subscription->getEndpoint();
+    }
+
+    /**
+     * Get the endpoint scheme and host from the push subscription.
      *
      * @return string
      */
-    public function getEndpointHost(): string
+    public function getEndpointSchemeAndHost(): string
     {
-        return $this->subscription->getEndpointHost();
+        return $this->subscription->getEndpointSchemeAndHost();
     }
 
     /**

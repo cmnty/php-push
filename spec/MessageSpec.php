@@ -67,14 +67,14 @@ class MessageSpec extends ObjectBehavior
 
     function it_should_contain_the_host_of_the_push_subscription_endpoint(PushSubscription $subscription)
     {
-        $subscription->getEndpointHost()->willReturn('host');
+        $subscription->getEndpointSchemeAndHost()->willReturn('scheme://host');
 
-        $this->getEndpointHost()->shouldBeString();
+        $this->getEndpointSchemeAndHost()->shouldBeString();
     }
 
     function it_should_contain_the_url_of_the_push_subscription_endpoint(PushSubscription $subscription)
     {
-        $subscription->getEndpointUrl()->willReturn('https://domain.tld');
+        $subscription->getEndpointUrl()->willReturn('https://example.org');
 
         $this->getEndpointUrl()->shouldBeString();
     }

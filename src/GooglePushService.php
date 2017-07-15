@@ -23,18 +23,15 @@ class GooglePushService implements PushService
     }
 
     /**
-     * Check weather this push service supports a certain host.
+     * Check weather this push service supports a certain endpoint.
      *
-     * @param string $host
+     * @param Endpoint $endpoint
      *
      * @return bool
      */
-    public function supportsHost(string $host): bool
+    public function supportsEndpoint(Endpoint $endpoint): bool
     {
-        return in_array($host, [
-            'android.googleapis.com',
-            'fcm.googleapis.com',
-        ]);
+        return 'https://android.googleapis.com/gcm/send' === substr($endpoint->getUrl(), 0, 39);
     }
 
     /**

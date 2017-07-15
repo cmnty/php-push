@@ -14,7 +14,7 @@ class MozillaPushServiceSpec extends ObjectBehavior
 {
     function let(PushMessage $message)
     {
-        $message->getEndpointUrl()->willReturn('https:://mozilla.push.services');
+        $message->getEndpointUrl()->willReturn('https://updates.push.services.mozilla.com/wpush/v1/...');
 
         $message->getBody()->willReturn('cipher_text');
         $message->getContentLength()->willReturn(256);
@@ -33,9 +33,11 @@ class MozillaPushServiceSpec extends ObjectBehavior
         $this->shouldImplement(PushService::class);
     }
 
-    function it_should_confirm_mozilla_is_supported()
+    function it_should_confirm_mozilla_is_supported(Endpoint $endpoint)
     {
-        $this->supportsHost('updates.push.services.mozilla.com')->shouldReturn(true);
+        $endpoint->getUrl()->willReturn('https://updates.push.services.mozilla.com/wpush/v1/...');
+
+        $this->supportsEndpoint($endpoint)->shouldReturn(true);
     }
 
     function it_should_create_a_request_from_a_message(PushMessage $message)

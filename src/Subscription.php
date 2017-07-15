@@ -51,9 +51,9 @@ class Subscription implements PushSubscription
      *
      * @return string
      */
-    public function getEndpointHost(): string
+    public function getEndpointSchemeAndHost(): string
     {
-        return $this->endpoint->getHost();
+        return $this->endpoint->getSchemeAndHost();
     }
 
     /**

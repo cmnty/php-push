@@ -19,7 +19,7 @@ interface PushSubscription
      *
      * @return string
      */
-    public function getEndpointHost(): string;
+    public function getEndpointSchemeAndHost(): string;
 
     /**
      * Get the endpoint url.

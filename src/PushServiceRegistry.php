@@ -24,14 +24,14 @@ class PushServiceRegistry
     /**
      * Check whether a push service exists in the registry.
      *
-     * @param string $host
+     * @param Endpoint $endpoint
      *
      * @return bool
      */
-    public function hasPushService($host): bool
+    public function hasPushService(Endpoint $endpoint): bool
     {
         foreach ($this->pushServices as $pushService) {
-            if ($pushService->supportsHost($host)) {
+            if ($pushService->supportsEndpoint($endpoint)) {
                 return true;
             }
         }
@@ -42,20 +42,20 @@ class PushServiceRegistry
     /**
      * Get a push service from the registry.
      *
-     * @param string $host
+     * @param Endpoint $endpoint
      *
      * @return PushService
      *
-     * @throws UnsupportedPushService When no push service that supports the given host is found.
+     * @throws UnsupportedPushService When no push service that supports the given endpoint is found.
      */
-    public function getPushService($host): PushService
+    public function getPushService(Endpoint $endpoint): PushService
     {
         foreach ($this->pushServices as $pushService) {
-            if ($pushService->supportsHost($host)) {
+            if ($pushService->supportsEndpoint($endpoint)) {
                 return $pushService;
             }
         }
 
-        throw UnsupportedPushService::forHost($host);
+        throw UnsupportedPushService::forEndpoint($endpoint);
     }
 }
