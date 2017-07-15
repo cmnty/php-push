@@ -25,7 +25,7 @@ use Cmnty\Push\AggregatePushService;
 use Cmnty\Push\Client;
 use Cmnty\Push\Crypto\AuthenticationSecret;
 use Cmnty\Push\Crypto\PublicKey;
-use Cmnty\Push\EndPoint;
+use Cmnty\Push\Endpoint;
 use Cmnty\Push\GooglePushService;
 use Cmnty\Push\MozillaPushService;
 use Cmnty\Push\Notification;
@@ -35,8 +35,8 @@ use Cmnty\Push\Subscription;
 $notification = new Notification('Hello', 'World!');
 $subscription = new Subscription(
     new Endpoint('...'),
-    new PublicKey::createFromBase64UrlEncodedString('...'),
-    new AuthenticationSecret::createFromBase64UrlEncodedString('...')
+    PublicKey::createFromBase64UrlEncodedString('...'),
+    AuthenticationSecret::createFromBase64UrlEncodedString('...')
 );
 
 $pushServiceRegistry = new PushServiceRegistry();
