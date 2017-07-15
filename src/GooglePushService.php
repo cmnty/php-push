@@ -78,8 +78,8 @@ class GooglePushService implements PushService
             'Authorization' => 'key='.$this->apiKey,
             'Content-Type' => 'application/json',
             'Content-Length' => $message->getContentLength(),
-            'Encryption' => 'keyid=p256dh;salt='.$message->getSalt(),
-            'Crypto-Key' => 'keyid=p256dh;dh='.$message->getCryptoKey(),
+            'Encryption' => 'salt='.$message->getSalt(),
+            'Crypto-Key' => 'dh='.$message->getCryptoKey(),
             'Content-Encoding' => 'aesgcm',
             'TTL' => $message->getTTL(),
         ];
