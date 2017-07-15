@@ -3,7 +3,7 @@
 namespace Cmnty\Push\Crypto;
 
 use Cmnty\Push\PushNotification;
-use Cmnty\Push\Subscription;
+use Cmnty\Push\PushSubscription;
 
 class Cryptograph
 {
@@ -33,11 +33,11 @@ class Cryptograph
      * Message encryption
      *
      * @param PushNotification $notification
-     * @param Subscription $subscription
+     * @param PushSubscription $subscription
      *
      * @return Cipher
      */
-    public function encrypt(PushNotification $notification, Subscription $subscription): Cipher
+    public function encrypt(PushNotification $notification, PushSubscription $subscription): Cipher
     {
         $plainText = $this->addPadding($notification->json());
 
