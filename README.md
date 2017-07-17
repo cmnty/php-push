@@ -68,6 +68,38 @@ $client = new Client($pushService, null, $cryptograph);
 ```
 If required, you can also provide your own implementation by implementing the `Cmnty\Push\Crypto\Crypt` interface.
 
+## Vapid
+
+In order to use the VAPID protocol, you will need to supply a `applicationServerKey` when subscribing to the push notifications in the browser. You can find an example on how to do so in this [push-notifications coldelab][link-push-notification-codelab] / [github][link-push-notification-codelab-github]
+
+Once you have a 'VAPID enabled' subscription, sending the push notifications works the same as without VAPID using the `VapidPushService`. You can supply the keys (ECDSA using the P-256 Curve / ES256) as PEM encoded strings (recommended).
+
+The subject claim passed to the token factory should include a contact URI for the application server as either a "mailto:" (email) or an "https:" URI.
+
+For more information about VAPID, please check out the [Internet-Draft][link-vapid-draft].
+
+**Note:** The push subscription is linked with the key it was made with. When you need to change your keys, the subscriptions made with the old ones will no longer work.
+
+```php
+<?php
+
+use Cmnty\Push\Client;
+use Cmnty\Push\Crypto\KeyPair;
+use Cmnty\Push\Crypto\PrivateKey;
+use Cmnty\Push\Crypto\PublicKey;
+use Cmnty\Push\Vapid\LcobucciJWTTokenFactory;
+use Cmnty\Push\VapidPushService;
+
+$privateKey = PrivateKey::createFromPem(file_get_contents('/path/to/private/key.pem'));
+$publicKey = PublicKey::createFromPem(file_get_contents('/path/to/public/key.pem'));
+
+$keyPair = new KeyPair($privateKey, $publicKey);
+
+$tokenFactory = new LcobucciJWTTokenFactory($keyPair, 'mailto:johan@cmnty.com');
+$pushService = new VapidPushService($tokenFactory);
+$client = new Client($pushService);
+```
+
 ## Framework Integration
 
 * Symfony: [cmnty/push-bundle][link-symfony-bundle]
@@ -93,3 +125,7 @@ The MIT License (MIT). Please see [License File](LICENSE) for more information.
 [link-jdr]: https://github.com/johanderuijter
 [link-cmnty]: https://github.com/cmnty
 [link-contributors]: ../../contributors
+
+[link-push-notification-codelab]: https://developers.google.com/web/fundamentals/getting-started/codelabs/push-notifications/
+[link-push-notification-codelab-github]: https://github.com/GoogleChrome/push-notifications/
+[link-vapid-draft]: https://tools.ietf.org/html/draft-ietf-webpush-vapid

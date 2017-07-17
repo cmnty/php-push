@@ -6,6 +6,8 @@ use InvalidArgumentException;
 use Mdanter\Ecc\Crypto\Key\PublicKeyInterface;
 use Mdanter\Ecc\EccFactory;
 use Mdanter\Ecc\Serializer\Point\UncompressedPointSerializer;
+use Mdanter\Ecc\Serializer\PublicKey\DerPublicKeySerializer;
+use Mdanter\Ecc\Serializer\PublicKey\PemPublicKeySerializer;
 
 class PublicKey implements KeyingMaterial
 {
@@ -61,6 +63,21 @@ class PublicKey implements KeyingMaterial
         $binary = new BinaryString(hex2bin($hex));
 
         return new self($binary);
+    }
+
+    /**
+     * Create a private key from a PEM encoded string.
+     *
+     * @param string $privateKey
+     *
+     * @return self
+     */
+    public static function createFromPem(string $privateKey): self
+    {
+        $publicKeySerializer = new PemPublicKeySerializer(new DerPublicKeySerializer());
+        $eccKey = $publicKeySerializer->parse($privateKey);
+
+        return self::createFromEccKey($eccKey);
     }
 
     /**

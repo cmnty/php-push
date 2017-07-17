@@ -3,13 +3,20 @@
 namespace Cmnty\Push\Crypto;
 
 use Mdanter\Ecc\Crypto\Key\PrivateKeyInterface;
+use Mdanter\Ecc\Serializer\PrivateKey\DerPrivateKeySerializer;
+use Mdanter\Ecc\Serializer\PrivateKey\PemPrivateKeySerializer;
 
 class PrivateKey
 {
     /**
-     * @var PrivateKeyInterface
+     * @var PrivateKeyInterface|null
      */
     private $eccKey;
+
+    /**
+     * @var string|null
+     */
+    private $pemEncodedString;
 
     /**
      * Create a private key from a Mdanter Ecc Private Key.
@@ -27,7 +34,24 @@ class PrivateKey
     }
 
     /**
+     * Create a private key from a PEM encoded string.
+     *
+     * @param string $pemEncodedString
+     *
+     * @return self
+     */
+    public static function createFromPem(string $pemEncodedString): self
+    {
+        $key = new self();
+        $key->pemEncodedString = $pemEncodedString;
+
+        return $key;
+    }
+
+    /**
      * Get the public key.
+     *
+     * WARNING: This is a slow process. Only use when the public key is not available.
      *
      * @return PublicKey
      */
@@ -43,7 +67,30 @@ class PrivateKey
      */
     public function getEccKey(): PrivateKeyInterface
     {
+        if ($this->eccKey === null) {
+            $privateKeySerializer = new PemPrivateKeySerializer(new DerPrivateKeySerializer());
+            $this->eccKey = $privateKeySerializer->parse($this->pemEncodedString);
+        }
+
         return $this->eccKey;
+    }
+
+    /**
+     * Get the private key in PEM format.
+     *
+     * WARNING: Serializing the key is a slow process.
+     *
+     * @return string
+     */
+    public function toPem(): string
+    {
+        if ($this->pemEncodedString === null) {
+            $keySerializer = new PemPrivateKeySerializer(new DerPrivateKeySerializer());
+
+            $this->pemEncodedString = $keySerializer->serialize($this->getEccKey());
+        }
+
+        return $this->pemEncodedString;
     }
 
     /**
