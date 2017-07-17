@@ -11,19 +11,22 @@
         }
     ],
     "require": {
-        "php": "~7.0",
-        "guzzlehttp/guzzle": "~6.2.1",
-        "mdanter/ecc": "~0.4.0",
-        "spomky-labs/base64url": "~1.0",
+        "php": "^7.0",
+        "guzzlehttp/guzzle": "^6.2",
+        "mdanter/ecc": "^0.4.0",
+        "spomky-labs/base64url": "^1.0",
         "lcobucci/jwt": "^3.2",
         "jdr/jws-ecdsa": "^0.4.0"
     },
     "require-dev": {
         "ext-crypto": "*",
         "lib-openssl": "*",
-        "spomky-labs/php-aes-gcm": "~1.0",
-        "phpspec/phpspec": "~3.2",
-        "phpspec/prophecy": "~1.6"
+        "spomky-labs/php-aes-gcm": "^1.0",
+        "phpspec/phpspec": "^3.4",
+        "phpspec/prophecy": "^1.7",
+        "phpunit/phpunit": "^6.2",
+        "phpstan/phpstan": "^0.7.0",
+        "vlucas/phpdotenv": "^2.4"
     },
     "suggest": {
         "ext-crypto": "Use ext-crypto to encrypt the notifications",
@@ -33,6 +36,11 @@
     "autoload": {
         "psr-4": {
             "Cmnty\\Push\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Cmnty\\Push\\Test\\": "tests"
         }
     },
     "extra": {

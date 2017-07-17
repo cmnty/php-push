@@ -1,16 +1,18 @@
 language: php
 
 php:
-    - 7.0
     - 7.1
 
 matrix:
   include:
     -
-        php: 7
+        php: 7.0
         env: dependencies=lowest
     -
-        php: 7
+        php: 7.1
+        env: dependencies=lowest
+    -
+        php: 7.1
         env: dependencies=highest
 
 cache:
@@ -27,4 +29,8 @@ before_script:
     - if [ "$dependencies" = "highest" ]; then travis_retry composer update -n; fi;
 
 script:
+    - find src -type f -name "*.php" | xargs -n 1 php -l 1>/dev/null
+    - find spec -type f -name "*.php" | xargs -n 1 php -l 1>/dev/null
+    - find tests -type f -name "*.php" | xargs -n 1 php -l 1>/dev/null
     - vendor/bin/phpspec run --format=pretty
+    - if [ "$TRAVIS_PHP_VERSION" = "7.1" ]; then vendor/bin/phpstan analyse src -l 4; fi;
